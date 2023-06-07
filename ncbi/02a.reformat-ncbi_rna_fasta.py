@@ -71,6 +71,11 @@ for line in f_gff:
         f_log.write("GeneSymbol(%s): %s -> " % (ncbi_gene_id, gene_symbol))
         gene_symbol = 'znf568.L'
         f_log.write(" %s\n" % gene_symbol)
+    
+    if gene_symbol == 'prss8l.5.S loc108703873':
+        f_log.write("GeneSymbol(%s): %s -> " % (ncbi_gene_id, gene_symbol))
+        gene_symbol = 'prss8l.5.S'
+        f_log.write(" %s\n" % gene_symbol)
 
     if tx_id not in tx_info:
         tx_info[tx_id] = {'name': gene_symbol, 'xb_gene_id': xb_gene_id, 'ncbi_gene_id': ncbi_gene_id, 'type': tmp_type}
