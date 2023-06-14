@@ -93,9 +93,12 @@ if filename_fa.endswith('.gz'):
     f_fa = gzip.open(filename_fa, 'rt')
 
 f_out = open('%s.prot_all.fa' % filename_base, 'w')
+f_name = open('%s.prot_names.tsv' % filename_base, 'w')
 for line in f_fa:
     if line.startswith('>'):
         tmp_id = line.strip().split()[0].lstrip('>')
+        tmp_name = " ".join(line.strip().split()[1:])
+        tmp_name = tmp_name.replace('[Xenopus laevis]', '').strip()
 
         # stop if there is no protein_id in the GFF3 file
         if tmp_id not in prot_info:
@@ -106,6 +109,8 @@ for line in f_fa:
             tmp_h = '%s|%s|%s|GeneID:%s xb_gene_id=%s' %\
                     (tmp_p['name'], tmp_id, tmp_p['tx_id'],
                      tmp_p['ncbi_gene_id'], tmp_p['xb_gene_id'])
+            
+            f_name.write('%s\tGeneID:%s\t%s\t%s\n' % (tmp_id, tmp_p['ncbi_gene_id'], tmp_p['xb_gene_id'], tmp_name))
 
             if tmp_p['tx_id'].find('_') < 0:
                 is_log = 1
