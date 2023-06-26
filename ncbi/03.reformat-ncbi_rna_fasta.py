@@ -15,6 +15,7 @@ def check_file(tmp_filename):
         sys.stderr.write('%s is not available. Stop.\n' % tmp_filename)
         sys.exit(1)
 
+
 filename_fa = sys.argv[1]
 filename_gff = sys.argv[2]
 filename_base = sys.argv[3]
@@ -58,7 +59,7 @@ for line in f_gff:
                     ncbi_gene_id = tmp2.split(':')[1]
                 if tmp2.startswith('Xenbase:'):
                     xb_gene_id = tmp2.split(':')[1]
-    
+
     if gene_symbol.find('provis') >= 0:
         f_log.write("GeneSymbol(%s): %s -> " % (ncbi_gene_id, gene_symbol))
         gene_symbol = gene_symbol.replace(' [provisonal]', '')
@@ -71,14 +72,15 @@ for line in f_gff:
         f_log.write("GeneSymbol(%s): %s -> " % (ncbi_gene_id, gene_symbol))
         gene_symbol = 'znf568.L'
         f_log.write(" %s\n" % gene_symbol)
-    
+
     if gene_symbol == 'prss8l.5.S loc108703873':
         f_log.write("GeneSymbol(%s): %s -> " % (ncbi_gene_id, gene_symbol))
         gene_symbol = 'prss8l.5.S'
         f_log.write(" %s\n" % gene_symbol)
 
     if tx_id not in tx_info:
-        tx_info[tx_id] = {'name': gene_symbol, 'xb_gene_id': xb_gene_id, 'ncbi_gene_id': ncbi_gene_id, 'type': tmp_type}
+        tx_info[tx_id] = {'name': gene_symbol, 'xb_gene_id': xb_gene_id,
+                          'ncbi_gene_id': ncbi_gene_id, 'type': tmp_type}
 f_gff.close()
 
 is_log = -1
@@ -100,7 +102,7 @@ for line in f_fa:
         else:
             tmp_tx = tx_info[tmp_id]
             tmp_h = '%s|%s|GeneID:%s xb_gene_id=%s type=%s' %\
-                    (tmp_tx['name'], tmp_id, tmp_tx['ncbi_gene_id'], 
+                    (tmp_tx['name'], tmp_id, tmp_tx['ncbi_gene_id'],
                      tmp_tx['xb_gene_id'], tmp_tx['type'])
 
             if tmp_tx['ncbi_gene_id'] == 'NA':

@@ -19,6 +19,7 @@ def check_file(tmp_filename):
         sys.stderr.write('%s is not available. Stop.\n' % tmp_filename)
         sys.exit(1)
 
+
 filename_fa = sys.argv[1]
 filename_gff = sys.argv[2]
 filename_base = sys.argv[3]
@@ -109,8 +110,10 @@ for line in f_fa:
             tmp_h = '%s|%s|%s|GeneID:%s xb_gene_id=%s' %\
                     (tmp_p['name'], tmp_id, tmp_p['tx_id'],
                      tmp_p['ncbi_gene_id'], tmp_p['xb_gene_id'])
-            
-            f_name.write('%s\tGeneID:%s\t%s\t%s\n' % (tmp_id, tmp_p['ncbi_gene_id'], tmp_p['xb_gene_id'], tmp_name))
+
+            f_name.write('%s\tGeneID:%s\t%s\t%s\t%s\n' %
+                         (tmp_id, tmp_p['ncbi_gene_id'],
+                          tmp_p['xb_gene_id'], tmp_p['name'], tmp_name))
 
             if tmp_p['tx_id'].find('_') < 0:
                 is_log = 1
